@@ -84,13 +84,12 @@ run_mode: Specifies whether to run in 'train' or 'cross_val' mode.
 timestamp: Automatically generated timestamp for logging runs.
 
 
-
-Installation
+## Installation
 Before running the code, ensure that you have Python 3.8+ installed. You will need to install the required Python packages. You can install them using pip:
 
 pip install torch torchmetrics matplotlib seaborn scikit-learn tqdm wandb pandas numpy
 
-Required Packages:
+## Required Packages:
 torch: The PyTorch library for building and training neural networks.
 torchmetrics: Metrics for evaluating model performance.
 matplotlib: Plotting library for visualizing results.
@@ -109,7 +108,7 @@ A. run_mode='train'
 Description:
 This mode trains the model on the training dataset and evaluates it on a separate evaluation dataset. After training, the model is tested on a test dataset. This mode is intended for standard training and validation of the model.
 
-Prerequisites:
+## Prerequisites:
 Directory Structure: The train, eval, and test directories should be properly set up with subject data as described above.
 Hyperparameters: Define the hyperparameters (batch size, epochs, learning rate, etc.) and choose the network (NET_list) and hemisphere (H_list).
 Preprocessed Data: Ensure that the data files have been preprocessed and saved as .pkl files.
@@ -118,11 +117,11 @@ Ensure that the run_mode is set to 'train' in the main script.
 
 Adjust the hyperparameters and settings as needed.
 
-Run the main script:
+## Run the main script:
 
 python main_model.py
 
-Expected Output:
+## Expected Output:
 The model will be trained on the training dataset.
 Validation will occur after each epoch using the evaluation dataset.
 The best model (based on evaluation loss) will be saved.
@@ -131,7 +130,7 @@ B. run_mode='cross_val'
 Description:
 This mode performs k-fold cross-validation on the dataset. The data is split into k folds, where the model is trained on k-1 folds and tested on the remaining fold. This process is repeated k times, with each fold being used once as the test set.
 
-Prerequisites:
+## Prerequisites:
 Directory Structure: The cross_val directory should be set up with subject data.
 Hyperparameters: Define the hyperparameters, including the number of folds (k), and choose the network (NET_list) and hemisphere (H_list).
 Preprocessed Data: Ensure that the data files have been preprocessed and saved as .pkl files.
@@ -139,24 +138,3 @@ How to Run:
 Ensure that the run_mode is set to 'cross_val' in the main script.
 
 Adjust the hyperparameters and settings as needed.
-
-Run the main script:
-
-bash
-Copy code
-python main_model.py
-Expected Output:
-The model will be trained and tested on k different folds.
-The average accuracy across all folds will be reported.
-Each fold's best model will be saved separately.
-4. Hyperparameters and Configuration
-NET_list: List of networks to use in the training (e.g., ['Vis']).
-H_list: List of hemispheres to use (e.g., ['RH', 'LH']).
-batch_size: Number of samples per batch.
-epochs: Number of training epochs.
-learning_rate: Learning rate for the optimizer.
-dropout: Dropout rate for regularization.
-k: Number of folds for cross-validation (only for cross_val mode).
-5. Notes
-Synthetic Data: The script includes options for creating synthetic subjects by adding Gaussian noise to the original data. This can be controlled with the Create_synthetic_subjects and n_synthetic_subjects parameters.
-Logging: All training and evaluation metrics are logged using Weights & Biases (wandb). Make sure to log in to wandb before running the scripts.
