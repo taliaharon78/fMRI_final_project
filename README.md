@@ -2,35 +2,6 @@
 
 This project is focused on developing a Transformer-based model to classify functional magnetic resonance imaging (fMRI) data. The model is designed to work with preprocessed fMRI datasets, leveraging both spatial and temporal features to predict brain activity associated with different tasks or resting states. The project includes two primary modes of operation: `train` mode for standard model training and evaluation, and `cross_val` mode for performing k-fold cross-validation.
 
-## Directory Structure
-
-The project expects the dataset to be organized as follows:
-
-```plaintext
-root_directory/
-├── train/
-│   ├── subject_1/
-│   │   ├── data_file_1.pkl
-│   │   ├── ...
-│   ├── subject_2/
-│   │   ├── ...
-│   └── ...
-├── eval/
-│   ├── subject_141/
-│   │   ├── data_file_1.pkl
-│   │   ├── ...
-│   └── ...
-├── test/
-│   ├── subject_159/
-│   │   ├── data_file_1.pkl
-│   │   ├── ...
-│   └── ...
-└── cross_val/
-    ├── subject_1/
-    │   ├── data_file_1.pkl
-    │   ├── ...
-    └── ... 
-
 Hyperparameters
 The main script allows for several hyperparameters to be configured. Below is a description of the key hyperparameters:
 
@@ -138,3 +109,36 @@ How to Run:
 Ensure that the run_mode is set to 'cross_val' in the main script.
 
 Adjust the hyperparameters and settings as needed.
+
+## Directory Structure
+
+The project expects the dataset to be organized as follows:
+
+```plaintext
+root_directory/
+├── train/
+│   ├── subject_1/
+│   │   ├── data_file_1.pkl
+│   │   ├── ...
+│   ├── subject_2/
+│   │   ├── ...
+│   └── ...
+├── eval/
+│   ├── subject_141/
+│   │   ├── data_file_1.pkl
+│   │   ├── ...
+│   └── ...
+├── test/
+│   ├── subject_159/
+│   │   ├── data_file_1.pkl
+│   │   ├── ...
+│   └── ...
+└── cross_val/
+    ├── subject_1/
+    │   ├── data_file_1.pkl
+    │   ├── ...
+    └── ... 
+
+
+
+
