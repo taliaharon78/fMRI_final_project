@@ -2,7 +2,45 @@
 
 This project is focused on developing a Transformer-based model to classify functional magnetic resonance imaging (fMRI) data. The model is designed to work with preprocessed fMRI datasets, leveraging both spatial and temporal features to predict brain activity associated with different tasks or resting states. The project includes two primary modes of operation: `train` mode for standard model training and evaluation, and `cross_val` mode for performing k-fold cross-validation.
 
-Hyperparameters
+## Installation
+Before running the code, ensure that you have Python 3.8+ installed. You will need to install the required Python packages. You can install them using pip:
+
+pip install torch torchmetrics matplotlib seaborn scikit-learn tqdm wandb pandas numpy
+
+## Required Packages:
+torch: The PyTorch library for building and training neural networks.
+torchmetrics: Metrics for evaluating model performance.
+matplotlib: Plotting library for visualizing results.
+seaborn: Statistical data visualization.
+scikit-learn: Machine learning tools, including K-Fold cross-validation.
+tqdm: Progress bar for loops.
+wandb: Weights & Biases, a tool for tracking experiments.
+pandas: Data manipulation and analysis.
+numpy: Fundamental package for numerical computations.
+
+File Naming Conventions
+Each subject folder should contain fMRI data files in .pkl format.
+The files should be named according to the hemisphere (LH, RH, or BOTH) and the network (Vis, Default, etc.).
+3. Modes of Operation
+A. run_mode='train'
+Description:
+This mode trains the model on the training dataset and evaluates it on a separate evaluation dataset. After training, the model is tested on a test dataset. This mode is intended for standard training and validation of the model.
+
+## Prerequisites:
+Directory Structure: The train, eval, and test directories should be properly set up with subject data as described above.
+Hyperparameters: Define the hyperparameters (batch size, epochs, learning rate, etc.) and choose the network (NET_list) and hemisphere (H_list).
+Preprocessed Data: Ensure that the data files have been preprocessed and saved as .pkl files.
+How to Run:
+Ensure that the run_mode is set to 'train' in the main script.
+
+Adjust the hyperparameters and settings as needed.
+
+## Run the main script:
+
+python main_model.py
+
+## Hyperparameters
+
 The main script allows for several hyperparameters to be configured. Below is a description of the key hyperparameters:
 
 directory: Path to the root directory containing the train, eval, test, and cross_val folders.
@@ -53,44 +91,6 @@ k: Number of folds to use in cross-validation.
 run_mode: Specifies whether to run in 'train' or 'cross_val' mode.
 
 timestamp: Automatically generated timestamp for logging runs.
-
-
-## Installation
-Before running the code, ensure that you have Python 3.8+ installed. You will need to install the required Python packages. You can install them using pip:
-
-pip install torch torchmetrics matplotlib seaborn scikit-learn tqdm wandb pandas numpy
-
-## Required Packages:
-torch: The PyTorch library for building and training neural networks.
-torchmetrics: Metrics for evaluating model performance.
-matplotlib: Plotting library for visualizing results.
-seaborn: Statistical data visualization.
-scikit-learn: Machine learning tools, including K-Fold cross-validation.
-tqdm: Progress bar for loops.
-wandb: Weights & Biases, a tool for tracking experiments.
-pandas: Data manipulation and analysis.
-numpy: Fundamental package for numerical computations.
-
-File Naming Conventions
-Each subject folder should contain fMRI data files in .pkl format.
-The files should be named according to the hemisphere (LH, RH, or BOTH) and the network (Vis, Default, etc.).
-3. Modes of Operation
-A. run_mode='train'
-Description:
-This mode trains the model on the training dataset and evaluates it on a separate evaluation dataset. After training, the model is tested on a test dataset. This mode is intended for standard training and validation of the model.
-
-## Prerequisites:
-Directory Structure: The train, eval, and test directories should be properly set up with subject data as described above.
-Hyperparameters: Define the hyperparameters (batch size, epochs, learning rate, etc.) and choose the network (NET_list) and hemisphere (H_list).
-Preprocessed Data: Ensure that the data files have been preprocessed and saved as .pkl files.
-How to Run:
-Ensure that the run_mode is set to 'train' in the main script.
-
-Adjust the hyperparameters and settings as needed.
-
-## Run the main script:
-
-python main_model.py
 
 ## Expected Output:
 The model will be trained on the training dataset.
