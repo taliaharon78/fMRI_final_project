@@ -1,43 +1,89 @@
 # fMRI Transformer Project
 
-This project is focused on developing a Transformer-based model to classify functional magnetic resonance imaging (fMRI) data. The model is designed to work with preprocessed fMRI datasets, leveraging both spatial and temporal features to predict brain activity associated with different tasks or resting states. The project includes two primary modes of operation: `train` mode for standard model training and evaluation, and `cross_val` mode for performing k-fold cross-validation.
+This project is focused on developing a Transformer-based model to classify functional magnetic resonance imaging (fMRI) data. 
 
-## Installation
-Before running the code, ensure that you have Python 3.8+ installed. You will need to install the required Python packages. You can install them using pip:
+The model is designed to work with preprocessed fMRI datasets, leveraging both spatial and temporal features to predict brain activity associated with different tasks or resting states. 
+
+The project includes two primary modes of operation: `train` mode for standard model training and evaluation, and `cross_val` mode for performing k-fold cross-validation.
+
+
+# Installation
+Before running the code, ensure that you have Python 3.8+ installed. 
+
+You will need to install the required Python packages. You can install them using pip:
 
 pip install torch torchmetrics matplotlib seaborn scikit-learn tqdm wandb pandas numpy
 
 ## Required Packages:
 torch: The PyTorch library for building and training neural networks.
+
 torchmetrics: Metrics for evaluating model performance.
+
 matplotlib: Plotting library for visualizing results.
+
 seaborn: Statistical data visualization.
+
 scikit-learn: Machine learning tools, including K-Fold cross-validation.
+
 tqdm: Progress bar for loops.
+
 wandb: Weights & Biases, a tool for tracking experiments.
+
 pandas: Data manipulation and analysis.
+
 numpy: Fundamental package for numerical computations.
 
-File Naming Conventions
-Each subject folder should contain fMRI data files in .pkl format.
-The files should be named according to the hemisphere (LH, RH, or BOTH) and the network (Vis, Default, etc.).
-3. Modes of Operation
-A. run_mode='train'
-Description:
-This mode trains the model on the training dataset and evaluates it on a separate evaluation dataset. After training, the model is tested on a test dataset. This mode is intended for standard training and validation of the model.
 
-## Prerequisites:
-Directory Structure: The train, eval, and test directories should be properly set up with subject data as described above.
-Hyperparameters: Define the hyperparameters (batch size, epochs, learning rate, etc.) and choose the network (NET_list) and hemisphere (H_list).
+# Prerequisites:
+Directory Structure: The cross_val directory should be set up with subject data.
+
+Hyperparameters: Define the hyperparameters, including the number of folds (k), and choose the network (NET_list) and hemisphere (H_list).
+
 Preprocessed Data: Ensure that the data files have been preprocessed and saved as .pkl files.
+
 How to Run:
-Ensure that the run_mode is set to 'train' in the main script.
+Ensure that the run_mode is set to 'cross_val' in the main script.
 
 Adjust the hyperparameters and settings as needed.
 
-## Run the main script:
+## Directory Structure
 
-python main_model.py
+The project expects the dataset to be organized as follows:
+
+```plaintext
+root_directory/
+├── train/
+│   ├── subject_1/
+│   │   ├── data_file_1.pkl
+│   │   ├── ...
+│   ├── subject_2/
+│   │   ├── ...
+│   └── ...
+├── eval/
+│   ├── subject_141/
+│   │   ├── data_file_1.pkl
+│   │   ├── ...
+│   └── ...
+├── test/
+│   ├── subject_159/
+│   │   ├── data_file_1.pkl
+│   │   ├── ...
+│   └── ...
+└── cross_val/
+    ├── subject_1/
+    │   ├── data_file_1.pkl
+    │   ├── ...
+    └── ...
+    ├── subject_176/
+    │   ├── ...
+    └── ... 
+```
+
+## File Naming Conventions:
+
+Each subject folder should contain fMRI data files in .pkl format.
+
+The files should be named according to the hemisphere (LH, RH, or BOTH) and the network (Vis, Default, etc.).
 
 ## Hyperparameters
 
@@ -87,58 +133,40 @@ n_synthetic_TRs: Number of synthetic TRs (Time Repeats) to create.
 
 k: Number of folds to use in cross-validation.
 
-
 run_mode: Specifies whether to run in 'train' or 'cross_val' mode.
 
 timestamp: Automatically generated timestamp for logging runs.
 
-## Expected Output:
-The model will be trained on the training dataset.
-Validation will occur after each epoch using the evaluation dataset.
-The best model (based on evaluation loss) will be saved.
-Finally, the model will be tested on the test dataset, and the results will be logged.
-B. run_mode='cross_val'
-Description:
-This mode performs k-fold cross-validation on the dataset. The data is split into k folds, where the model is trained on k-1 folds and tested on the remaining fold. This process is repeated k times, with each fold being used once as the test set.
+## Modes of Operation:
+### Run Mode: Training
 
-## Prerequisites:
-Directory Structure: The cross_val directory should be set up with subject data.
-Hyperparameters: Define the hyperparameters, including the number of folds (k), and choose the network (NET_list) and hemisphere (H_list).
-Preprocessed Data: Ensure that the data files have been preprocessed and saved as .pkl files.
-How to Run:
-Ensure that the run_mode is set to 'cross_val' in the main script.
+#### Prerequisites:
 
-Adjust the hyperparameters and settings as needed.
+- The `train`, `eval`, and `test` directories must be properly set up with the subject folders containing the necessary `.pkl` files.
+- 140 subjects should be set under 'train/movies' and the same subjects should be set under 'train/rest' (80% of the subjects), 18 in 'eval' (under rest and movies) and 18 in 'test' (under rest and movies)
+- Ensure the `exists_list` variable is updated to include all the relevant input files to be processed.
 
-## Directory Structure
+#### Description:
 
-The project expects the dataset to be organized as follows:
+- The `train` mode trains the model using the data in the `train` directory, optionally validating it against the `eval` set and testing it on the `test` set.
+- Synthetic subjects can be generated to augment the training data.
+- The model and results are logged using Weights and Biases (wandb).
 
-```plaintext
-root_directory/
-├── train/
-│   ├── subject_1/
-│   │   ├── data_file_1.pkl
-│   │   ├── ...
-│   ├── subject_2/
-│   │   ├── ...
-│   └── ...
-├── eval/
-│   ├── subject_141/
-│   │   ├── data_file_1.pkl
-│   │   ├── ...
-│   └── ...
-├── test/
-│   ├── subject_159/
-│   │   ├── data_file_1.pkl
-│   │   ├── ...
-│   └── ...
-└── cross_val/
-    ├── subject_1/
-    │   ├── data_file_1.pkl
-    │   ├── ...
-    └── ... 
+### Run Mode: Cross-Validation
+
+#### Prerequisites:
+
+- The `cross_val` directory must contain all 176 subject folders with the necessary `.pkl` files.
+- Ensure the `exists_list` variable includes all the relevant input files.
+
+#### Description:
+
+- The `cross_val` mode performs k-fold cross-validation on the dataset located in the `cross_val` directory.
+- The reason for cross validation: grouping into 4-subjects-groups (and then averaging to get the averaged group subject) results with only 44 subjects (176/4). In normal training run_mode we end up with only 4 subjects to test on (10% of 176). With cross_val run mode (with 4 folds and no validation) we test 4 times on 11 different averaged subjects. 
+- Each fold trains the model on a subset of the data while validating on the remaining portion.
+- The model and results are logged using Weights and Biases (wandb).
 
 
+# Run the main script:
 
-
+python main_model.py
