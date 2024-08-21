@@ -44,6 +44,10 @@ Preprocessed Data: Ensure that the data files have been preprocessed and saved a
 How to Run:
 Ensure that the run_mode is set to 'cross_val' in the main script.
 
+follow the next setting:
+1. in transformer.py file - set the parameter "seq_len" to 1
+2. in preprocess2.py file - in process_movie_data function make sure when slice = end, the input takes the last 5 : elif slice == 'end':input = input.iloc[-5:, :]
+
 Adjust the hyperparameters and settings as needed.
 
 ## Directory Structure
