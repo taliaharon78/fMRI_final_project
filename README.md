@@ -1,4 +1,5 @@
 # fMRI Transformer Project
+### By Karin Shauli and Tali Aharon
 
 This project is focused on developing a Transformer-based model to classify functional magnetic resonance imaging (fMRI) data. 
 
